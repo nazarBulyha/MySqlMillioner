@@ -1,0 +1,13 @@
+c:\users\nazar\documents\visual studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\bin\Debug\MSSql_CSharp.exe.config
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\bin\Debug\MSSql_CSharp.exe
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\bin\Debug\MSSql_CSharp.pdb
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\obj\Debug\MSSql_CSharp.Authorisation.resources
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\obj\Debug\MSSql_CSharp.MainForm.resources
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\obj\Debug\MSSql_CSharp.Properties.Resources.resources
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\obj\Debug\MSSql_CSharp.csproj.GenerateResource.Cache
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\obj\Debug\MSSql_CSharp.exe
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\obj\Debug\MSSql_CSharp.pdb
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\obj\Debug\MSSql_CSharp.NewUser.resources
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\obj\Debug\MSSql_CSharp.csprojResolveAssemblyReference.cache
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\bin\Debug\LogDB.mdf
+C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\bin\Debug\LogDB_log.ldf
