@@ -11,19 +11,27 @@ namespace MSSql_CSharp
         string query;
         SqlCommand cmd;
         SqlConnection connection;
+        User user;
 
         public NewUser()
         {
             InitializeComponent();
+
             connectionString = ConfigurationManager.ConnectionStrings["MSSql_CSharp.Properties.Settings.LogDbConnectionString"].ConnectionString;
             query = "insert into Users(Name, NickName, Pass) values (@Name, @NickName, @Pass)";
+
+            user = new User();
         }
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
+            user.NewName = tbNewName.Text;
+            user.NickName = tbNickName.Text;
+            user.Password = tbNewPassword.Text;
+
             Insert();
         }
-        private void Insert()
+        public void Insert()
         {
             if (tbNewPassword.Text == tbReapPassword.Text)
             {
@@ -33,9 +41,9 @@ namespace MSSql_CSharp
                     cmd = new SqlCommand(query, connection);
 
                     connection.Open();
-                    cmd.Parameters.AddWithValue("@Name", tbNewName.Text);
-                    cmd.Parameters.AddWithValue("@NickName", tbNickName.Text);
-                    cmd.Parameters.AddWithValue("@Pass", tbNewPassword.Text);
+                    cmd.Parameters.AddWithValue("@Name", user.NewName);
+                    cmd.Parameters.AddWithValue("@NickName", user.NickName);
+                    cmd.Parameters.AddWithValue("@Pass", user.Password);
                     cmd.ExecuteNonQuery();
                     Close();
                 }

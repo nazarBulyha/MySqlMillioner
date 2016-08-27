@@ -12,6 +12,8 @@ namespace MSSql_CSharp
         SqlConnection connection;
         SqlDataAdapter adapter;
         DataTable dt;
+        MainForm main;
+        bool auth = false;
 
         public Authorisation()
         {
@@ -19,12 +21,7 @@ namespace MSSql_CSharp
             connectionString = ConfigurationManager.ConnectionStrings["MSSql_CSharp.Properties.Settings.LogDbConnectionString"].ConnectionString;
         }
 
-        private void btnEnter_Click(object sender, EventArgs e)
-        {
-            Auth();
-        }
-
-        private void Auth()
+        private bool Auth()
         {
             string query = "select Count(*) from Users where Name = '" + tbUser.Text + "' and Pass = '" + tbPassword.Text + "'";
             connection = new SqlConnection(connectionString);
@@ -35,11 +32,21 @@ namespace MSSql_CSharp
 
             if (dt.Rows[0][0].ToString() == "1")
             {
-                Close();
+                auth = true;
             }
             else
             {
                 MessageBox.Show("Try againe");
+            }
+            return auth;
+        }
+
+        private void btnEnter_Click(object sender, EventArgs e)
+        {
+            if (Auth())
+            {
+                Close();
+                auth = false;
             }
         }
 

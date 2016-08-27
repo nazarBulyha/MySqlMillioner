@@ -87,6 +87,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User.cs" />
     <EmbeddedResource Include="Authorisation.resx">
       <DependentUpon>Authorisation.cs</DependentUpon>
     </EmbeddedResource>

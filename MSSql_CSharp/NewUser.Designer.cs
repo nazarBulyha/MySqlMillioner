@@ -150,8 +150,9 @@
             this.Controls.Add(this.tbNickName);
             this.Controls.Add(this.tbNewName);
             this.Controls.Add(this.btnEnter);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "NewUser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NewUser";

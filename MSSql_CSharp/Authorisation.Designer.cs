@@ -108,7 +108,7 @@
             this.Controls.Add(this.tbUser);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblUser);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "Authorisation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
