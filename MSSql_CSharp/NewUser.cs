@@ -7,61 +7,55 @@ namespace MSSql_CSharp
 {
     public partial class NewUser : Form
     {
-        string connectionString;
-        string query;
-        SqlCommand cmd;
-        SqlConnection connection;
-        User user;
+        private readonly string _connectionString;
+        private readonly string _query;
+        private SqlCommand Cmd { get; set; }
+        private SqlConnection Connection { get; set; }
+        private readonly User _user;
 
         public NewUser()
         {
             InitializeComponent();
 
-            connectionString = ConfigurationManager.ConnectionStrings["MSSql_CSharp.Properties.Settings.LogDbConnectionString"].ConnectionString;
-            query = "insert into Users(Name, NickName, Pass) values (@Name, @NickName, @Pass)";
+            _connectionString = ConfigurationManager.ConnectionStrings["MSSql_CSharp.Properties.Settings.LogDbConnectionString"].ConnectionString;
+            _query = "insert into Users(Name, NickName, Pass) values (@Name, @NickName, @Pass)";
 
-            user = new User();
+            _user = new User();
         }
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            user.NewName = tbNewName.Text;
-            user.NickName = tbNickName.Text;
-            user.Password = tbNewPassword.Text;
+            _user.NewName = tbNewName.Text;
+            _user.NickName = tbNickName.Text;
+            _user.Password = tbNewPassword.Text;
 
             Insert();
         }
-        public void Insert()
+
+        private void Insert()
         {
             if (tbNewPassword.Text == tbReapPassword.Text)
             {
                 try
                 {
-                    connection = new SqlConnection(connectionString);
-                    cmd = new SqlCommand(query, connection);
+                    Connection = new SqlConnection(_connectionString);
+                    Cmd = new SqlCommand(_query, Connection);
 
-                    connection.Open();
-                    cmd.Parameters.AddWithValue("@Name", user.NewName);
-                    cmd.Parameters.AddWithValue("@NickName", user.NickName);
-                    cmd.Parameters.AddWithValue("@Pass", user.Password);
-                    cmd.ExecuteNonQuery();
+                    Connection.Open();
+                    Cmd.Parameters.AddWithValue("@Name", _user.NewName);
+                    Cmd.Parameters.AddWithValue("@NickName", _user.NickName);
+                    Cmd.Parameters.AddWithValue("@Pass", _user.Password);
+                    Cmd.ExecuteNonQuery();
                     Close();
-                }
-                catch (Exception)
-                {
-                    throw;
                 }
                 finally
                 {
-                    if (connection != null)
-                    {
-                        connection.Close();
-                    }
+                    Connection?.Close();
                 }
             }
             else
             {
-                MessageBox.Show("Check your password!");
+                MessageBox.Show(@"Check your password!");
             }
         }
     }

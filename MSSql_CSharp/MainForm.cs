@@ -4,17 +4,18 @@ namespace MSSql_CSharp
 {
     public partial class MainForm : Form
     {
-        Authorisation auth;
+        private Authorisation Auth { get; }
+
         public MainForm()
         {
             InitializeComponent();
-            auth = new Authorisation();
-            auth.ShowDialog();
+            Auth = new Authorisation();
+            Auth.ShowDialog();
         }
 
         private void logInToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            auth.ShowDialog();
+            Auth.ShowDialog();
         }
 
         private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)

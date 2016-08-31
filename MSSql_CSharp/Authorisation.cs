@@ -8,51 +8,53 @@ namespace MSSql_CSharp
 {
     public partial class Authorisation : Form
     {
-        string connectionString;
-        SqlConnection connection;
-        SqlDataAdapter adapter;
-        DataTable dt;
-        MainForm main;
-        bool auth = false;
+        private readonly string _connectionString;
+        private SqlDataAdapter Adapter { get; set; }
+
+        private DataTable Dt { get; set; }
+
+        private bool Auth { get; set; }
+
+        private SqlConnection Connection { get; set; }
 
         public Authorisation()
         {
             InitializeComponent();
-            connectionString = ConfigurationManager.ConnectionStrings["MSSql_CSharp.Properties.Settings.LogDbConnectionString"].ConnectionString;
+            _connectionString =
+                ConfigurationManager.ConnectionStrings["MSSql_CSharp.Properties.Settings.LogDbConnectionString"]
+                    .ConnectionString;
         }
 
-        private bool Auth()
+        private bool Authorization()
         {
-            string query = "select Count(*) from Users where Name = '" + tbUser.Text + "' and Pass = '" + tbPassword.Text + "'";
-            connection = new SqlConnection(connectionString);
-            adapter = new SqlDataAdapter(query, connection);
-            dt = new DataTable();//create table from our sql variables
+            var query = "select Count(*) from Users where Name = '" + tbUser.Text + "' and Pass = '" + tbPassword.Text +"'";
+            Connection = new SqlConnection(_connectionString);
+            Adapter = new SqlDataAdapter(query, Connection);
+            Dt = new DataTable(); //create table from our sql variables
 
-            adapter.Fill(dt);
+            Adapter.Fill(Dt);
 
-            if (dt.Rows[0][0].ToString() == "1")
+            if (Dt.Rows[0][0].ToString() == "1")
             {
-                auth = true;
+                Auth = true;
             }
             else
             {
-                MessageBox.Show("Try againe");
+                MessageBox.Show(@"Try againe");
             }
-            return auth;
+            return Auth;
         }
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            if (Auth())
-            {
-                Close();
-                auth = false;
-            }
+            if (!Authorization()) return;
+            Close();
+            Auth = false;
         }
 
         private void lnkLbNewUser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            NewUser newUser = new NewUser();
+            var newUser = new NewUser();
             newUser.ShowDialog();
         }
     }
