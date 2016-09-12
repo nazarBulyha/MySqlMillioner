@@ -10,12 +10,10 @@ namespace MSSql_CSharp
     {
         private readonly string _connectionString;
         private SqlDataAdapter Adapter { get; set; }
-
         private DataTable Dt { get; set; }
+        private SqlConnection Connection { get; set; }
 
         private bool Auth { get; set; }
-
-        private SqlConnection Connection { get; set; }
 
         public Authorisation()
         {
@@ -38,9 +36,11 @@ namespace MSSql_CSharp
             {
                 Auth = true;
             }
+            else if (tbUser.Text == string.Empty || tbPassword.Text == string.Empty)
+                MessageBox.Show("Checkout your user|password field. It's empty!");
             else
             {
-                MessageBox.Show(@"Try againe");
+                MessageBox.Show("Your user name or password are incorrect.\nPlease try again.");
             }
             return Auth;
         }

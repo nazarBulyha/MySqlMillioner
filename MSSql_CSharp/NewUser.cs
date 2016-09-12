@@ -8,7 +8,8 @@ namespace MSSql_CSharp
     public partial class NewUser : Form
     {
         private readonly string _connectionString;
-        private readonly string _query;
+        private readonly string _queryInsert;
+        private readonly string _queryGetUser;
         private SqlCommand Cmd { get; set; }
         private SqlConnection Connection { get; set; }
         private readonly User _user;
@@ -18,7 +19,7 @@ namespace MSSql_CSharp
             InitializeComponent();
 
             _connectionString = ConfigurationManager.ConnectionStrings["MSSql_CSharp.Properties.Settings.LogDbConnectionString"].ConnectionString;
-            _query = "insert into Users(Name, NickName, Pass) values (@Name, @NickName, @Pass)";
+            _queryInsert = "insert into Users(Name, NickName, Pass) values (@Name, @NickName, @Pass)";
 
             _user = new User();
         }
@@ -39,14 +40,25 @@ namespace MSSql_CSharp
                 try
                 {
                     Connection = new SqlConnection(_connectionString);
-                    Cmd = new SqlCommand(_query, Connection);
-
+                    Cmd = new SqlCommand(_queryInsert, Connection);
                     Connection.Open();
-                    Cmd.Parameters.AddWithValue("@Name", _user.NewName);
-                    Cmd.Parameters.AddWithValue("@NickName", _user.NickName);
-                    Cmd.Parameters.AddWithValue("@Pass", _user.Password);
-                    Cmd.ExecuteNonQuery();
-                    Close();
+
+                    Cmd.CommandText = "SELECT count(Name) FROM Users WHERE name='" + _user.NewName + "'";
+                    int countRows = (int)Cmd.ExecuteScalar();
+
+                    if (countRows == 0)
+                    {
+                        Cmd.CommandText = _queryInsert;
+                        Cmd.Parameters.AddWithValue("@Name", _user.NewName);
+                        Cmd.Parameters.AddWithValue("@NickName", _user.NickName);
+                        Cmd.Parameters.AddWithValue("@Pass", _user.Password);
+                        Cmd.ExecuteNonQuery();
+                        Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("User is already in database!");
+                    }
                 }
                 finally
                 {

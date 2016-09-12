@@ -9,5 +9,3 @@ C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\o
 C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\obj\Debug\MSSql_CSharp.pdb
 C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\obj\Debug\MSSql_CSharp.NewUser.resources
 C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\obj\Debug\MSSql_CSharp.csprojResolveAssemblyReference.cache
-C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\bin\Debug\LogDB.mdf
-C:\Users\nazar\Documents\Visual Studio 2015\Projects\MSSql_CSharp\MSSql_CSharp\bin\Debug\LogDB_log.ldf
