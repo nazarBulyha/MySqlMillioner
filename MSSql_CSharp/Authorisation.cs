@@ -48,7 +48,7 @@ namespace MSSql_CSharp
         private void btnEnter_Click(object sender, EventArgs e)
         {
             if (!Authorization()) return;
-            Close();
+            this.Visible = false;
             Auth = false;
         }
 
@@ -56,6 +56,12 @@ namespace MSSql_CSharp
         {
             var newUser = new NewUser();
             newUser.ShowDialog();
+        }
+
+        private void Authorisation_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

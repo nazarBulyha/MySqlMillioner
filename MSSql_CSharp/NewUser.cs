@@ -9,7 +9,6 @@ namespace MSSql_CSharp
     {
         private readonly string _connectionString;
         private readonly string _queryInsert;
-        private readonly string _queryGetUser;
         private SqlCommand Cmd { get; set; }
         private SqlConnection Connection { get; set; }
         private readonly User _user;
