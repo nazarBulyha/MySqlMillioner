@@ -43,7 +43,7 @@ namespace MSSql_CSharp
                     Connection.Open();
 
                     Cmd.CommandText = "SELECT count(Name) FROM Users WHERE name='" + _user.NewName + "'";
-                    int countRows = (int)Cmd.ExecuteScalar();
+                    var countRows = (int)Cmd.ExecuteScalar();
 
                     if (countRows == 0)
                     {
@@ -56,7 +56,7 @@ namespace MSSql_CSharp
                     }
                     else
                     {
-                        MessageBox.Show("User is already in database!");
+                        MessageBox.Show(@"User is already in database!");
                     }
                 }
                 finally

@@ -37,10 +37,10 @@ namespace MSSql_CSharp
                 Auth = true;
             }
             else if (tbUser.Text == string.Empty || tbPassword.Text == string.Empty)
-                MessageBox.Show("Checkout your user|password field. It's empty!");
+                MessageBox.Show(@"Checkout your user|password field. It's empty!");
             else
             {
-                MessageBox.Show("Your user name or password are incorrect.\nPlease try again.");
+                MessageBox.Show(@"Your user name or password are incorrect.\nPlease try again.");
             }
             return Auth;
         }
@@ -48,7 +48,7 @@ namespace MSSql_CSharp
         private void btnEnter_Click(object sender, EventArgs e)
         {
             if (!Authorization()) return;
-            this.Visible = false;
+            Visible = false;
             Auth = false;
         }
 
@@ -61,7 +61,7 @@ namespace MSSql_CSharp
         private void Authorisation_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            this.WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
         }
     }
 }

@@ -96,6 +96,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="QuestionAnswers.cs" />
     <Compile Include="User.cs" />
     <EmbeddedResource Include="Authorisation.resx">
       <DependentUpon>Authorisation.cs</DependentUpon>
@@ -137,10 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
-    <None Include="LogDB.mdf" />
-    <Content Include="LogDB_log.ldf">
-      <DependentUpon>LogDB.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
