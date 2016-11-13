@@ -10,10 +10,11 @@ namespace MSSql_CSharp
     public partial class MainForm : Form
     {
         public string CorectAnswer { get; set; }
+        private List<string> correctAnswers;
+        public static int I { get; set; } = 0;
 
         private readonly string _connectionString;
         private readonly string _querySelect;
-        public static int I { get; set; }
         private Authorisation Auth { get; }
         private SqlCommand Cmd { get; set; }
         private SqlConnection Connection { get; set; }
@@ -47,6 +48,7 @@ namespace MSSql_CSharp
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            gbQA.Visible = false;
             gbChoose.Visible = true;
         }
 
@@ -77,28 +79,22 @@ namespace MSSql_CSharp
         #region Buttons Manipulation
         private void OrderQuestions()
         {
-            do
+            var qAnswers = new QuestionAnswers();
+            GetListQuestions(qAnswers);
+            ShuffleListQuestions(qAnswers);
+
+
+            lblQuestionNumber.Text = @"Question: " + (I + 1);
+
+            foreach (var qa in qAnswers.QA)
             {
-                var qaAnswers = new QuestionAnswers();
-                GetQuestions(qaAnswers);
-
-                var tempListAnswers = new List<string> { qaAnswers.GoodAnswer, qaAnswers.Answer2, qaAnswers.Answer3, qaAnswers.Answer4 };
-                var listAnswers = tempListAnswers.OrderBy(x => _rnd.Next()).ToList();
-
-                lblQuestionNumber.Text = @"Question: " + I;
-                lblQuestion.Text = qaAnswers.Question;
-                CorectAnswer = qaAnswers.GoodAnswer;
-
-                for (var temp = 0; temp < 4; temp++)
-                {
-                    btnA.Text = listAnswers[temp];
-                    btnB.Text = listAnswers[temp];
-                    btnC.Text = listAnswers[temp];
-                    btnD.Text = listAnswers[temp];
-                }
-
-
-            } while (I <= 10);
+                CorectAnswer = correctAnswers[I];
+                lblQuestion.Text = qAnswers.QA[I].Question;
+                btnA.Text = qAnswers.QA[I].GoodAnswer;
+                btnB.Text = qAnswers.QA[I].Answer2;
+                btnC.Text = qAnswers.QA[I].Answer3;
+                btnD.Text = qAnswers.QA[I].Answer4;
+            }
         }
 
         private void HideButtons()
@@ -114,7 +110,10 @@ namespace MSSql_CSharp
         private void btnA_Click(object sender, EventArgs e)
         {
             if (btnA.Text == CorectAnswer)
+            {
                 I++;
+                OrderQuestions();
+            }
             else
                 LoseForn();
         }
@@ -122,7 +121,10 @@ namespace MSSql_CSharp
         private void btnB_Click(object sender, EventArgs e)
         {
             if (btnB.Text == CorectAnswer)
+            {
                 I++;
+                OrderQuestions();
+            }
             else
                 LoseForn();
         }
@@ -130,7 +132,10 @@ namespace MSSql_CSharp
         private void btnC_Click(object sender, EventArgs e)
         {
             if (btnC.Text == CorectAnswer)
+            {
                 I++;
+                OrderQuestions();
+            }
             else
                 LoseForn();
         }
@@ -138,7 +143,10 @@ namespace MSSql_CSharp
         private void btnD_Click(object sender, EventArgs e)
         {
             if (btnD.Text == CorectAnswer)
+            {
                 I++;
+                OrderQuestions();
+            }
             else
                 LoseForn();
         }
@@ -159,22 +167,49 @@ namespace MSSql_CSharp
             }
         }
 
-        private void GetQuestions(QuestionAnswers qAnswer)
+        private void GetListQuestions(QuestionAnswers qAnswer)
         {
-            Connection = new SqlConnection(_connectionString);
-            Cmd = new SqlCommand(_querySelect, Connection);
-            
-            using (var sqlReader = Cmd.ExecuteReader()) //Get data from sqlTable and write it to qAnswer class
+            try
             {
-                while (sqlReader.Read())
+                Connection = new SqlConnection(_connectionString);
+                Cmd = new SqlCommand(_querySelect, Connection);
+                Connection.Open();
+
+                using (var sqlReader = Cmd.ExecuteReader()) //Get data from sqlTable and write it to qAnswer class
                 {
-                    qAnswer.Question = (string) sqlReader[0];
-                    qAnswer.GoodAnswer = (string) sqlReader[1];
-                    qAnswer.Answer2 = (string) sqlReader[2];
-                    qAnswer.Answer3 = (string) sqlReader[3];
-                    qAnswer.Answer4 = (string) sqlReader[4];
+                    while (sqlReader.Read())
+                    {
+                        qAnswer = new QuestionAnswers()
+                        {
+                            Question = (string)sqlReader[1],
+                            GoodAnswer = (string)sqlReader[2],
+                            Answer2 = (string)sqlReader[3],
+                            Answer3 = (string)sqlReader[4],
+                            Answer4 = (string)sqlReader[5],
+                        };
+                        qAnswer.addQA(qAnswer);
+                    }
                 }
             }
+            finally
+            {
+                Connection?.Close();
+            }
+        }
+
+        private QuestionAnswers ShuffleListQuestions(QuestionAnswers qAnswer)
+        {
+            foreach (var qA in qAnswer.QA)
+            {
+                var qaList = new List<string> { qA.GoodAnswer, qA.Answer2, qA.Answer3, qA.Answer4 };
+                correctAnswers.Add(qA.GoodAnswer);
+                qaList.OrderBy(x => _rnd.Next()).ToList();
+                qAnswer.GoodAnswer = qaList[0];
+                qAnswer.Answer2 = qaList[1];
+                qAnswer.Answer3 = qaList[2];
+                qAnswer.Answer4 = qaList[3];
+            }
+            return qAnswer;
         }
     }
 }

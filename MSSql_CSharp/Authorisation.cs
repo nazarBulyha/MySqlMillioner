@@ -48,6 +48,7 @@ namespace MSSql_CSharp
         private void btnEnter_Click(object sender, EventArgs e)
         {
             if (!Authorization()) return;
+
             Visible = false;
             Auth = false;
         }
